@@ -1,33 +1,28 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Redirecting...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <script>
 (function () {
-  const cookieName = 'fm_visited';
+  const path = location.pathname || '/';
+  const search = location.search || '';
+  const hash = location.hash || '';
 
-  function getCookie(name) {
-    return document.cookie
-      .split('; ')
-      .find(r => r.startsWith(name + '='))?.split('=')[1];
-  }
-
-  function setCookie(name, value) {
-    document.cookie =
-      name + '=' + value +
-      '; path=/; domain=.filesmoon.site; max-age=86400';
-  }
-
-  // KUNJUNGAN KE-2 → PINDAH KE PLAY
-  if (getCookie(cookieName) === '1') {
-    if (location.pathname.startsWith('/e/')) {
-      const id = location.pathname.replace('/e/', '');
-      location.replace(
-        'https://play.filesmoon.site/#/e/' + encodeURIComponent(id)
-      );
-    } else {
-      location.replace('https://play.filesmoon.site/');
-    }
-    return;
-  }
-
-  // KUNJUNGAN KE-1 → TETAP DI WWW5
-  setCookie(cookieName, '1');
+  // redirect ke www5 (CLONE 1)
+  location.replace(
+    'https://www5.filesmoon.site' + path + search + hash
+  );
 })();
 </script>
+
+<noscript>
+<meta http-equiv="refresh" content="0;url=https://www5.filesmoon.site">
+</noscript>
+</head>
+<body>
+Redirecting...
+</body>
+</html>
