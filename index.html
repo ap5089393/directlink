@@ -6,28 +6,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script>
-(function () {
-  const path = location.pathname; // contoh: /e/c69g81but3gx
+(function(){
+  const KEY = "fm_rotate";
+  let count = parseInt(localStorage.getItem(KEY) || "0", 10);
+  count++;
+  localStorage.setItem(KEY, count);
 
-  // kalau format /e/{id}
-  if (path.startsWith('/e/')) {
-    const id = path.replace('/e/', '');
-    location.replace(
-      'https://www5.filesmoon.site/#/e/' + encodeURIComponent(id)
-    );
-    return;
+  const path = location.pathname; // /e/id
+  let target;
+
+  if (count % 2 === 1) {
+    // GANJIL → www5
+    if (path.startsWith("/e/")) {
+      const id = path.replace("/e/", "");
+      target = "https://www5.filesmoon.site/#/e/" + encodeURIComponent(id);
+    } else {
+      target = "https://www5.filesmoon.site/";
+    }
+  } else {
+    // GENAP → play
+    if (path.startsWith("/e/")) {
+      const id = path.replace("/e/", "");
+      target = "https://play.filesmoon.site/#/e/" + encodeURIComponent(id);
+    } else {
+      target = "https://play.filesmoon.site/";
+    }
   }
 
-  // default fallback
-  location.replace('https://www5.filesmoon.site/');
+  location.replace(target);
 })();
 </script>
 
 <noscript>
-  <meta http-equiv="refresh" content="0;url=https://www5.filesmoon.site">
+<meta http-equiv="refresh" content="0;url=https://www5.filesmoon.site">
 </noscript>
 </head>
-<body>
-Redirecting...
-</body>
+<body>Loading…</body>
 </html>
