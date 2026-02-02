@@ -1,44 +1,36 @@
-export default {
-  async fetch(request) {
-    const url = new URL(request.url)
-
-    // ROOT DOMAIN → homepage streamzu
-    if (url.pathname === '/' || url.pathname === '') {
-      return Response.redirect(
-        'https://www5.filesmoon.site/',
-        302
-      )
-    }
-
-    // /e/{id} → player
-    if (url.pathname.startsWith('/e/')) {
-      const id = url.pathname.replace('/e/', '')
-
-      const html = `<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
+  <title>Filesmoon Redirect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script>
-    location.replace('https://www5.filesmoon.site/#/e/${id}')
+    (function () {
+      const path = window.location.pathname;
+
+      // ROOT DOMAIN →
+      if (path === "/" || path === "") {
+        window.location.replace("https://www5.filesmoon.site/");
+        return;
+      }
+
+      // /e/{id} →
+      if (path.startsWith("/e/")) {
+        const id = path.replace("/e/", "").replace(/\//g, "");
+        window.location.replace("https://www5.filesmoon.site/#/e/" + id);
+        return;
+      }
+
+      // PATH LAIN →
+      window.location.replace("https://www5.filesmoon.site/");
+    })();
   </script>
 </head>
+
 <body>
-  Redirecting...
+  <p style="text-align:center;font-family:sans-serif">
+    Redirecting...
+  </p>
 </body>
-</html>`
-
-      return new Response(html, {
-        headers: {
-          'content-type': 'text/html;charset=UTF-8'
-        }
-      })
-    }
-
-    // path lain → homepage
-    return Response.redirect(
-      'https://www5.filesmoon.site/',
-      302
-    )
-  }
-}
+</html>
