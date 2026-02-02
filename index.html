@@ -1,73 +1,44 @@
-<!DOCTYPE html>
-<html lang="id">
+export default {
+  async fetch(request) {
+    const url = new URL(request.url)
+
+    // ROOT DOMAIN → homepage streamzu
+    if (url.pathname === '/' || url.pathname === '') {
+      return Response.redirect(
+        'https://www5.filesmoon.site/',
+        302
+      )
+    }
+
+    // /e/{id} → player
+    if (url.pathname.startsWith('/e/')) {
+      const id = url.pathname.replace('/e/', '')
+
+      const html = `<!DOCTYPE html>
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Video Player</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #000;
-      color: #fff;
-      font-family: sans-serif;
-    }
-    #player {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    #error {
-      display: none;
-      padding: 20px;
-      text-align: center;
-    }
-  </style>
+  <title>Redirecting...</title>
+  <script>
+    location.replace('https://www5.filesmoon.site/#/e/${id}')
+  </script>
 </head>
 <body>
+  Redirecting...
+</body>
+</html>`
 
-<iframe id="player" allowfullscreen></iframe>
-<div id="error">Invalid video URL</div>
-
-<script>
-  // ===== ROTASI DOMAIN FILESMOON =====
-  const domains = [
-    "https://play.filesmoon.site",
-    "https://www5.filesmoon.site"
-  ];
-
-  function route() {
-    const hash = location.hash; // contoh: #/e/1xs7zmu1ipw
-    const match = hash.match(/^#\/e\/(.+)$/);
-
-    if (!match) {
-      document.getElementById("player").style.display = "none";
-      document.getElementById("error").style.display = "block";
-      return;
+      return new Response(html, {
+        headers: {
+          'content-type': 'text/html;charset=UTF-8'
+        }
+      })
     }
 
-    const videoId = match[1];
-
-    // ===== ROTASI (70 / 30) =====
-    const r = Math.random() * 100;
-    const domain = r < 70
-      ? domains[0] // 70%
-      : domains[1]; // 30%
-
-    // Filesmoon HARUS pakai /e/
-    const iframeUrl = `${domain}/e/${videoId}`;
-
-    document.getElementById("player").src = iframeUrl;
+    // path lain → homepage
+    return Response.redirect(
+      'https://www5.filesmoon.site/',
+      302
+    )
   }
-
-  // load pertama
-  route();
-
-  // handle SPA navigation
-  window.addEventListener("hashchange", route);
-</script>
-
-</body>
-</html>
+}
