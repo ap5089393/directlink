@@ -1,45 +1,28 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Redirecting...</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // domain tujuan
+    const domains = [
+      "https://www5.filesmoon.site",
+      "https://play.filesmoon.site"
+    ];
 
-<script>
-(function(){
-  const KEY = "fm_rotate";
-  let count = parseInt(localStorage.getItem(KEY) || "0", 10);
-  count++;
-  localStorage.setItem(KEY, count);
+    // ambil path asli
+    const path = window.location.pathname; // /e/1xs7zmu1ipw
 
-  const path = location.pathname; // /e/id
-  let target;
+    // acak domain
+    const targetDomain = domains[Math.floor(Math.random() * domains.length)];
 
-  if (count % 2 === 1) {
-    // GANJIL → www5
-    if (path.startsWith("/e/")) {
-      const id = path.replace("/e/", "");
-      target = "https://www5.filesmoon.site/#/e/" + encodeURIComponent(id);
-    } else {
-      target = "https://www5.filesmoon.site/";
-    }
-  } else {
-    // GENAP → play
-    if (path.startsWith("/e/")) {
-      const id = path.replace("/e/", "");
-      target = "https://play.filesmoon.site/#/e/" + encodeURIComponent(id);
-    } else {
-      target = "https://play.filesmoon.site/";
-    }
-  }
+    // hasil akhir
+    const targetUrl = targetDomain + "/#"+ path;
 
-  location.replace(target);
-})();
-</script>
-
-<noscript>
-<meta http-equiv="refresh" content="0;url=https://www5.filesmoon.site">
-</noscript>
+    // redirect (pakai replace biar ga back)
+    window.location.replace(targetUrl);
+  </script>
 </head>
-<body>Loading…</body>
+<body>
+</body>
 </html>
