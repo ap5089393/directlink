@@ -4,23 +4,29 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    // domain tujuan
     const domains = [
       "https://www5.filesmoon.site",
       "https://play.filesmoon.site"
     ];
 
-    // ambil path asli
-    const path = window.location.pathname; // /e/1xs7zmu1ipw
+    // Ambil ID video dari URL
+    // contoh: /e/1xs7zmu1ipw
+    const match = window.location.pathname.match(/^\/e\/(.+)$/);
 
-    // acak domain
-    const targetDomain = domains[Math.floor(Math.random() * domains.length)];
+    // kalau format salah → stop
+    if (!match) {
+      document.body.innerHTML = "Invalid URL";
+    } else {
+      const videoId = match[1];
 
-    // hasil akhir
-    const targetUrl = targetDomain + "/#/e"+ path;
+      // random domain
+      const domain = domains[Math.floor(Math.random() * domains.length)];
 
-    // redirect (pakai replace biar ga back)
-    window.location.replace(targetUrl);
+      // ROUTE FINAL YANG DIKENAL FILESMOON
+      const target = `${domain}/#/e/${videoId}`;
+
+      window.location.replace(target);
+    }
   </script>
 </head>
 <body>
