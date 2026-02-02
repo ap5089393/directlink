@@ -7,14 +7,19 @@
 
 <script>
 (function () {
-  const path = location.pathname || '/';
-  const search = location.search || '';
-  const hash = location.hash || '';
+  const path = location.pathname; // contoh: /e/c69g81but3gx
 
-  // LANGSUNG arahkan ke www5 (clone pertama)
-  location.replace(
-    'https://www5.filesmoon.site' + path + search + hash
-  );
+  // kalau format /e/{id}
+  if (path.startsWith('/e/')) {
+    const id = path.replace('/e/', '');
+    location.replace(
+      'https://www5.filesmoon.site/#/e/' + encodeURIComponent(id)
+    );
+    return;
+  }
+
+  // default fallback
+  location.replace('https://www5.filesmoon.site/');
 })();
 </script>
 
