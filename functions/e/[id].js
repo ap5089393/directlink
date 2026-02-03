@@ -1,31 +1,24 @@
-// functions/e/[id].js
-export async function onRequest(context) {
-  const { params, request } = context
+// Pastikan binding KV SITE_ROTATOR sudah di-set di Pages Functions
+
+export async function onRequest({ request, params, env }) {
   const id = params.id
 
-  const cookie = request.headers.get('cookie') || ''
-  let isSite1
+  // Ambil hit counter dari KV
+  let counter = await env.SITE_ROTATOR.get('counter')
+  counter = counter ? parseInt(counter) : 0
 
-  if (cookie.includes('site=1')) {
-    isSite1 = true
-  } else if (cookie.includes('site=2')) {
-    isSite1 = false
-  } else {
-    // akses pertama → random 50/50
-    isSite1 = Math.random() < 0.5
-  }
+  // Tentukan site bergantian
+  const site = counter % 2 === 0
+    ? 'https://www5.filesmoon.site'
+    : 'https://play.filesmoon.site'
 
-  const site = isSite1 
-    ? 'https://l.wl.co/l?u=https://play.filesmoon.site' 
-    : 'https://l.wl.co/l?u=https://www5.filesmoon.site'
-  const nextCookie = isSite1 ? 'site=2' : 'site=1'
+  // Simpan counter kembali ke KV
+  await env.SITE_ROTATOR.put('counter', (counter + 1).toString())
 
-  return new Response(null, {
-    status: 302,
+  // Redirect
+  return Response.redirect(`${site}/#/e/${id}`, 302, {
     headers: {
-      'Location': `${site}/#/e/${id}`,
-      'Set-Cookie': `site=${nextCookie}; Path=/; HttpOnly; SameSite=Lax`,
-      'Cache-Control': 's-maxage=43200'
+      'Cache-Control': 's-maxage=43200' // cache 12 jam di edge
     }
   })
 }
