@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Redirecting...</title>
-<meta name="robots" content="noindex,nofollow">
-<script>
-  const parts = location.pathname.split("/");
-  const id = parts[parts.length - 1];
-
-  if (id && id !== "e") {
-    location.replace("play.filesmoon.site/#/e/" + id);
-  } else {
-    document.body.innerHTML = "Link tidak valid";
-  }
-</script>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // Langsung redirect saat halaman terbuka
+    window.location.replace("https://play.filesmoon.site/");
+  </script>
 </head>
 <body>
-Loading...
 </body>
 </html>
