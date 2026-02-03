@@ -4,16 +4,27 @@
 <meta charset="UTF-8">
 <title>Redirecting...</title>
 <meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-  const parts = location.pathname.split("/");
-  const id = parts[parts.length - 1];
+(function () {
+  const path = window.location.pathname.split("/");
+  const id = path[path.length - 1];
 
-  if (id && id !== "e") {
-    location.replace("https://play.filesmoon.site/#/e/" + id);
-  } else {
+  // pastikan ID valid
+  if (!id || id === "e") {
     document.body.innerHTML = "Link tidak valid";
+    return;
   }
+
+  // DOMAIN TUJUAN (FIX)
+  const TARGET = "https://play.filesmoon.site";
+
+  // redirect ke HASH ROUTE tujuan
+  window.location.replace(TARGET + "/#/e/" + id);
+})();
 </script>
 </head>
-<body>Loading...</body>
+<body>
+Loading...
+</body>
 </html>
