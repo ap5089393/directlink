@@ -1,36 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Filesmoon Redirect</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Redirecting...</title>
+<meta name="robots" content="noindex,nofollow">
+<script>
+  const parts = location.pathname.split("/");
+  const id = parts[parts.length - 1];
 
-  <script>
-    (function () {
-      const path = window.location.pathname;
-
-      // ROOT DOMAIN →
-      if (path === "/" || path === "") {
-        window.location.replace("https://www5.filesmoon.site/");
-        return;
-      }
-
-      // /e/{id} →
-      if (path.startsWith("/e/")) {
-        const id = path.replace("/e/", "").replace(/\//g, "");
-        window.location.replace("https://www5.filesmoon.site/#/e/" + id);
-        return;
-      }
-
-      // PATH LAIN →
-      window.location.replace("https://www5.filesmoon.site/");
-    })();
-  </script>
+  if (id && id !== "e") {
+    location.replace("play.filesmoon.site/#/e/" + id);
+  } else {
+    document.body.innerHTML = "Link tidak valid";
+  }
+</script>
 </head>
-
 <body>
-  <p style="text-align:center;font-family:sans-serif">
-    Redirecting...
-  </p>
+Loading...
 </body>
 </html>
