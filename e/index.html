@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Redirecting...</title>
-<meta name="robots" content="noindex,nofollow">
-<script>
-(function () {
-  const path = location.pathname.replace(/\/+$/, "");
-  const id = path.substring(path.lastIndexOf("/") + 1);
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  if (!id || id === "e") {
-    document.body.textContent = "Link tidak valid";
-    return;
-  }
+  <script>
+    // Ambil ID dari URL: /e/{id}
+    (function () {
+      var path = window.location.pathname;
 
-  location.replace(
-    "https://play.filesmoon.site/#/e/" + encodeURIComponent(id)
-  );
-})();
-</script>
+      // buang slash di akhir kalau ada
+      if (path.endsWith("/")) {
+        path = path.slice(0, -1);
+      }
+
+      var parts = path.split("/");
+      var id = parts[parts.length - 1];
+
+      // validasi
+      if (!id || id === "e") {
+        document.body.innerText = "Link tidak valid";
+        return;
+      }
+
+      // redirect ke tujuan (HASH DIBUAT DI SINI)
+      var target = "https://play.filesmoon.site/#/e/" + encodeURIComponent(id);
+      window.location.replace(target);
+    })();
+  </script>
 </head>
-<body>Loading...</body>
+<body>
+  Loading...
+</body>
 </html>
