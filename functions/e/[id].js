@@ -15,7 +15,7 @@ export async function onRequest({ request, params }) {
   }
 
   const target = usePlay
-    ? 'https://play.filesmoon.site'
+    ? 'https://www5.filesmoon.site''
     : 'https://www5.filesmoon.site'
 
   const nextCookie = usePlay ? 'site=www5' : 'site=play'
