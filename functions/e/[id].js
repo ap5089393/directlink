@@ -5,7 +5,7 @@ export async function onRequest({ request, params }) {
   return new Response(null, {
     status: 302,
     headers: {
-      'Location': `https://play.filesmoon.site/#/e/${id}`,
+      'Location': `domain-utama-bmp.pages.dev/#/e/${id}`,
       'Cache-Control': 'no-store, no-cache, must-revalidate'
     }
   })
