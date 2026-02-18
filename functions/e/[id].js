@@ -5,7 +5,7 @@ export async function onRequest({ params }) {
   return new Response(null, {
     status: 302,
     headers: {
-      'Location': `https://filesmoon.pages.dev/#/e/${id}`,
+      'Location': `https://filesmoon.site/#/e/${id}`,
       'Cache-Control': 'no-store, no-cache, must-revalidate'
     }
   })
