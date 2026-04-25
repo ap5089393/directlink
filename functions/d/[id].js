@@ -4,7 +4,7 @@ export async function onRequest({ params }) {
   return new Response(null, {
     status: 302,
     headers: {
-      'Location': 'https://www.facebook.com/groups/928931699973721',
+      'Location': 'https://www.whatsapp.com/channel/0029VbBW5uiFMqrflYpKvP3i',
       'Cache-Control': 'no-store, no-cache, must-revalidate'
     }
   })
